@@ -7,9 +7,13 @@ class Asset(enum.Enum):
 	DEPOSIT = '예금(소계)'
 	DEBT = '채무(소계)'
 	STOCK = '유가증권(소계)'
+	GEM = '보석류(소계)'
+	GOLD = '금 및 백금(소계)'
+	CASH = '현금(소계)'
 	MEMBERSHIP = '회원권(소계)'
 	NONPROFIT_CORPORATION = '비영리법인에 출연한 재산'
 	POLITICAL_FUND = '정치자금법에 따른 정치자금의 수입 및 지출을 위한 예금계좌의 예금(소계)'
+	BOND = '채권(소계)'
 	DENIAL_NOTICE = '고지거부 및 등록제외사항(소계)'
 
 def hasName(line):
@@ -29,7 +33,7 @@ def parseColumn(line):
 
 
 
-f = open('data.csv', 'r', encoding='utf-8')
+f = open('data6.csv', 'r', encoding='utf-8')
 rdr = csv.reader(f)
 
 name = ''
