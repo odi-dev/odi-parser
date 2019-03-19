@@ -1,20 +1,20 @@
 import csv, enum, json
 
 class Asset(enum.Enum):
-	LAND = '토지(소계)'
-	BUILDING = '건물(소계)'
-	VEHICLE = '부동산에 관한 규정이 준용되는 권리와 자동차 건설기계 선박 및 항공기(소계)'
-	DEPOSIT = '예금(소계)'
-	DEBT = '채무(소계)'
-	STOCK = '유가증권(소계)'
-	GEM = '보석류(소계)'
-	GOLD = '금 및 백금(소계)'
-	CASH = '현금(소계)'
-	MEMBERSHIP = '회원권(소계)'
-	NONPROFIT_CORPORATION = '비영리법인에 출연한 재산'
-	POLITICAL_FUND = '정치자금법에 따른 정치자금의 수입 및 지출을 위한 예금계좌의 예금(소계)'
-	BOND = '채권(소계)'
-	DENIAL_NOTICE = '고지거부 및 등록제외사항(소계)'
+	land = '토지(소계)'
+	building = '건물(소계)'
+	vehicle = '부동산에 관한 규정이 준용되는 권리와 자동차 건설기계 선박 및 항공기(소계)'
+	deposit = '예금(소계)'
+	debt = '채무(소계)'
+	stock = '유가증권(소계)'
+	gem = '보석류(소계)'
+	gold = '금 및 백금(소계)'
+	cash = '현금(소계)'
+	membership = '회원권(소계)'
+	nonprofit_corporation = '비영리법인에 출연한 재산'
+	political_fund = '정치자금법에 따른 정치자금의 수입 및 지출을 위한 예금계좌의 예금(소계)'
+	bond = '채권(소계)'
+	denial_notice = '고지거부 및 등록제외사항(소계)'
 
 def hasName(line):
 	for data in line:
@@ -33,12 +33,12 @@ def parseColumn(line):
 
 
 
-f = open('data6.csv', 'r', encoding='utf-8')
+f = open('data7.csv', 'r', encoding='utf-8')
 rdr = csv.reader(f)
 
 name = ''
 assetName = ''
-assets = {}
+asset = {}
 
 for line in rdr:
 	if line[0] == '' or line[0].find("총계") > -1:
@@ -50,17 +50,20 @@ for line in rdr:
 		print(name)
 	elif line[0].find("▶") > -1:
 		assetName = Asset(line[0].replace("▶", "").strip()).name
-		assets[assetName] = []
+		asset[assetName] = []
 		print(assetName)
 	else:
 		if assetName != '':
-			assets[assetName].append(parseColumn(line))
+			asset[assetName].append(parseColumn(line))
 			print(parseColumn(line))
 
 with open( name + '.json', 'w', encoding='UTF-8') as file:
-     json_val = json.dumps(assets, ensure_ascii=False)
-     #print(json_val)
-     file.write(json_val)
+	info = {}
+	info['name'] = name
+	info['asset'] = asset
+
+	json_val = json.dumps(info, ensure_ascii=False)
+	file.write(json_val)
 
 f.close()
 
