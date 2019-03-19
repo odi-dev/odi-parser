@@ -57,7 +57,7 @@ for line in rdr:
 			asset[assetName].append(parseColumn(line))
 			print(parseColumn(line))
 
-with open( name + '.json', 'w', encoding='UTF-8') as file:
+with open( 'json/' +  name + '.json', 'w', encoding='UTF-8') as file:
 	info = {}
 	info['name'] = name
 	info['asset'] = asset
